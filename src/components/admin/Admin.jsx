@@ -24,9 +24,7 @@ export const Admin = () => {
 
                 <div className="content">
                     <h2 className='text-center'>Bienvenido Admin</h2>
-
-                    <Users />
-                    
+                    <Users />                    
                 </div>
             </div>
         </>

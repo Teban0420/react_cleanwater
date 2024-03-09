@@ -5,40 +5,29 @@ export const Formulario = () => {
 
     return(
         <>
-            <form>
-                        
+            <form>                        
                 <div className="mb-3">
-                    <label className="form-label">Name</label>
+                    <label className="form-label">Nombre</label>
                     <input type="text" className="form-control" id="name" required />
-                </div>
+                </div>                
 
                 <div className="mb-3">
-                    <label className="form-label">Email</label>
-                    <input type="email" className="form-control" id="email" required/>
-                </div>
-
-                <div className="mb-3">
-                    <label className="form-label">Phone Number</label>
+                    <label className="form-label">Celular</label>
                     <input type="tel" className="form-control" id="phone" required/>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Address</label>
+                    <label className="form-label">Dirección</label>
                     <input type="text" className="form-control" id="address" required/>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Zip Code</label>
+                    <label className="form-label">Zipcode</label>
                     <input type="text" className="form-control" id="zip" required/>
-                </div>
+                </div>                
 
-                <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="terms" required/>
-                    <label className="form-check-label">I have read and agree to the <a href="#">terms and conditions</a></label>
-                </div>
-
-                <div className="text-center">
-                    <button type="submit" className="btn btn-primary">Get My Free Kit</button>
+                <div className="text-right">
+                    <button type="submit" className="btn btn-primary">Enviar</button>
                 </div>
             </form>
         </>

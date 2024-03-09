@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 import adminAxios from '../../config/axios';
 import { useContext, useState } from 'react';
 import { ApiContext } from '../../context/apiContext';
+import logo from '../home/logo.jpg';
 
 
 export const Login = () => {
@@ -75,7 +76,9 @@ export const Login = () => {
                             className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `}                          
                             to="/"
                         >
-                        <i className="fa-solid fa-house">&nbsp;Home</i>
+                        <div className="navbar-nav"> 
+                            <img src={logo} className='logo' alt="clean water" />
+                        </div>
                            
                         </NavLink>
                     </div>
