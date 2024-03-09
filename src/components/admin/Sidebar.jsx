@@ -1,6 +1,24 @@
-import { NavLink } from "react-router-dom"
+import { useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ApiContext } from '../../context/apiContext';
 
 export const Sidebar = () => {
+
+    const [auth, setAuth ] = useContext(ApiContext);
+    const navigate = useNavigate();
+
+    const cerrarSesion = () => {
+
+        setAuth({
+            token: '',
+            auth: false
+        })
+
+        localStorage.setItem('token', '');
+
+        navigate('/');
+    }
+
     return(
     <>
         <div className="sidebar">
@@ -17,13 +35,14 @@ export const Sidebar = () => {
                     </NavLink>
 
                 </li> 
-
-                <NavLink
-                    className="btn btn-danger"                         
-                    to="/"
+                
+                <button 
+                    className="btn btn-danger"  
+                    type='button'
+                    onClick={cerrarSesion}
                 >
-                    Salir
-                </NavLink> 
+                     Salir
+                </button>
 
             </ul>
         </div>        

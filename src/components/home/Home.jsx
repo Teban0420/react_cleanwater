@@ -7,17 +7,18 @@ export const Home = () => {
 
     return(
         <>            
-            <nav className="navbar navbar-expand-sm navbar-dark bg-primary p-2">            
+            <nav className="navbar navbar-expand-sm navbar-dark bg-primary p-4">            
 
                 <div className="navbar-collapse">
 
-                    <div className="navbar-nav ms-auto">  
+                    <div className="navbar-nav ms-auto right">  
 
                         <NavLink 
                             className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `} 
                             to="/login"
                         >
-                            Login
+                            <i className="fa-solid fa-right-to-bracket">&nbsp;Login</i>                           
+                           
                         </NavLink>
                     </div>
                 </div>
