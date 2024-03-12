@@ -9,7 +9,7 @@ export const Formulario = () => {
     const [agua_hogar, setagua_hogar] = useState([]);
     const [Select_agua_hogar, setSelect_agua_hogar] = useState([]);
     const [agua_proveniente, setagua_proveniente] = useState([]);
-    const [calidad, setcalidad] = useState(0);
+    const [calidad, setcalidad] = useState("0");
     const [edad, setedad] = useState([]);
     const [personas_hogar, setpersonas_hogar] = useState([]);
 
@@ -24,8 +24,7 @@ export const Formulario = () => {
         agua_hogar: '',
         Agua_provenienteId: '',
         casado: '',
-        edad: '',
-        calidad: '',
+        edad: '',        
         Personas_hogarId: '',
     });
 
@@ -63,15 +62,18 @@ export const Formulario = () => {
         }             
    }
 
-   const leer_calidad = (event) => {
-        console.log(event.target.value)
-        setcalidad(event.target.value);
+   const leer_calidad = (event) => {       
+        setcalidad(event.target.value);       
    }
 
    const leerdatos = e => {
 
+    let string_agua = Select_agua_hogar.toString();
+        
         setusuario({
             ...usuario,
+            agua_hogar: string_agua,
+            calidad_agua: Number(calidad),
             [e.target.name]: e.target.value
         })  
         
@@ -100,14 +102,6 @@ export const Formulario = () => {
    const agregar = async (e) => {
         e.preventDefault();
 
-        let string_agua = Select_agua_hogar.toString();
-
-        setusuario({
-           ...usuario,
-           agua_hogar: string_agua,
-           calidad: calidad
-        })
-       
         const respuesta = await adminAxios.post('/crear-usuario', usuario);    
         
         if(respuesta.status == 200){
@@ -141,18 +135,19 @@ export const Formulario = () => {
                 </div> 
 
                 <label className="form-label top">¿Estas casado?*</label>
-                <select className="form-select" aria-label="Default select example" name="casado" onChange={leerdatos}>                    
+                <select className="form-select" aria-label="Default select example" name="casado" onChange={leerdatos}> 
+                    <option value="">Seleccione una opción</option>                   
                     {
                         casado.map( element  => (
                             <option key={element.id} value={element.id}>{element.nombre}</option>                        
                         ))
                     }
-                </select>             
-                
+                </select>           
                 
                 <label className="form-label top">Edad*</label>
 
                 <select className="form-select" aria-label="Default select example" name="edad" onChange={leerdatos}>
+                    <option value="">Seleccione una opción</option> 
                 {
                     edad.map( element  => (
                         <option  key={element.id} value={element.id} >{element.rango_edad}</option>                        
@@ -164,15 +159,16 @@ export const Formulario = () => {
                 <label className="form-label top">¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*</label>
                 
                 <div className="container text-center">
-                    <input type="checkbox" className="btn-check" checked={calidad == 0} name="calidad" value={0} autoComplete="off" onChange={leer_calidad} />
+                    <input type="checkbox" className="btn-check" checked={calidad === "0"} name="calidad" value="0" autoComplete="off" onChange={leer_calidad} />
                     <label className="btn btn-primary" htmlFor="0">0</label>
 
-                    <input type="checkbox" className="btn-check" name="calidad" checked={calidad == 1} value={1} autoComplete="off" onChange={leer_calidad}/>
+                    <input type="checkbox" className="btn-check" name="calidad" checked={calidad === "1"} value="1" autoComplete="off" onChange={leer_calidad}/>
                     <label className="btn btn-primary m-1" htmlFor="1">1</label>               
                 </div>
 
                 <label className="form-label top">¿Cuantas personas viven en su hogar?*</label>
                 <select className="form-select" aria-label="Default select example" name="Personas_hogarId" onChange={leerdatos}>
+                    <option value="">Seleccione una opción</option> 
                     {
                         personas_hogar.map( persona => (
                             <option  key={persona.id} value={persona.id}>{persona.cantidad}</option>  
@@ -182,6 +178,7 @@ export const Formulario = () => {
 
                 <label className="form-label top">¿De donde viene el agua de su hogar?*</label>
                 <select className="form-select" aria-label="Default select example" name="Agua_provenienteId" onChange={leerdatos}>
+                    <option value="">Seleccione una opción</option> 
                     {
                         agua_proveniente.map( agua => (
                             <option  key={agua.id} value={agua.id}>{agua.procedencia_agua}</option> 
