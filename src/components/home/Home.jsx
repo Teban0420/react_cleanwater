@@ -62,9 +62,9 @@ export const Home = () => {
                         <div className="card">
                             <div className="card-body">
                         
-                                <div className="mb-3">
+                                {/* <div className="mb-3">
                                     <img src={imagen} className="img-fluid" alt="Imagen" />
-                                </div>
+                                </div> */}
 
                                 <h5 className="card-title text-center">Complete la siguiente información</h5>
 

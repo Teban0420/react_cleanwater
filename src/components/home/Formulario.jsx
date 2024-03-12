@@ -7,15 +7,15 @@ export const Formulario = () => {
 
     const [casado, setCasado] = useState([]);
     const [agua_hogar, setagua_hogar] = useState([]);
+    const [Select_agua_hogar, setSelect_agua_hogar] = useState([]);
     const [agua_proveniente, setagua_proveniente] = useState([]);
+    const [calidad, setcalidad] = useState(0);
     const [edad, setedad] = useState([]);
     const [personas_hogar, setpersonas_hogar] = useState([]);
 
-    const [checkedState, setCheckedState] = useState(
-        new Array(agua_hogar.length).fill(false)
-    );
+  
     const [usuario, setusuario] = useState({
-        propietario: 0,
+        propietario: '',
         reacciones_alergias: '',
         nombre: '',
         celular: '',
@@ -25,10 +25,11 @@ export const Formulario = () => {
         Agua_provenienteId: '',
         casado: '',
         edad: '',
+        calidad: '',
         Personas_hogarId: '',
     });
 
-    const calidad = [0,1,2,3,4,5,6,7,8,9,10];
+ 
 
    useEffect( () => {
 
@@ -46,12 +47,34 @@ export const Formulario = () => {
         
    }, []);
 
+   const seleccionado = (event) => {
+
+        const {value, checked } = event.target;   
+        
+        if(checked){
+
+            setSelect_agua_hogar([
+                ...Select_agua_hogar,
+                value
+            ]);          
+        }
+        else{
+            setSelect_agua_hogar(Select_agua_hogar.filter( element => element !== value));
+        }             
+   }
+
+   const leer_calidad = (event) => {
+        console.log(event.target.value)
+        setcalidad(event.target.value);
+   }
+
    const leerdatos = e => {
 
         setusuario({
             ...usuario,
             [e.target.name]: e.target.value
-        })       
+        })  
+        
    }
 
    const validarUsuario = () => {
@@ -62,20 +85,29 @@ export const Formulario = () => {
                 celular,
                 direccion,
                 zipcode,                
-                agua_hogar,
+                // agua_hogar,
                 Agua_provenienteId,
                 casado,
                 edad,
                 Personas_hogarId,} = usuario;
     
         let valido = !propietario.length || !reacciones_alergias.length || !nombre.length || !celular.length ||
-                    !direccion.length || !zipcode.length || !agua_hogar.length || !Agua_provenienteId.length ||
+                    !direccion.length || !zipcode.length  || !Agua_provenienteId.length ||
                     !casado.length || !edad.length || !Personas_hogarId.length
         return valido;
     }
 
    const agregar = async (e) => {
         e.preventDefault();
+
+        let string_agua = Select_agua_hogar.toString();
+
+        setusuario({
+           ...usuario,
+           agua_hogar: string_agua,
+           calidad: calidad
+        })
+       
         const respuesta = await adminAxios.post('/crear-usuario', usuario);    
         
         if(respuesta.status == 200){
@@ -128,16 +160,16 @@ export const Formulario = () => {
                 }
                 </select>
 
-                <label className="form-label top">¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*</label>
 
-                {/* {
-                    calidad.map( element => (
-                        <>
-                            <input key={element} type="checkbox" className="btn-check" autoComplete="off" value={element}/>
-                            <label htmlFor={element} className="btn">{element}</label>
-                        </>
-                    ))
-                } */}
+                <label className="form-label top">¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*</label>
+                
+                <div className="container text-center">
+                    <input type="checkbox" className="btn-check" checked={calidad == 0} name="calidad" value={0} autoComplete="off" onChange={leer_calidad} />
+                    <label className="btn btn-primary" htmlFor="0">0</label>
+
+                    <input type="checkbox" className="btn-check" name="calidad" checked={calidad == 1} value={1} autoComplete="off" onChange={leer_calidad}/>
+                    <label className="btn btn-primary m-1" htmlFor="1">1</label>               
+                </div>
 
                 <label className="form-label top">¿Cuantas personas viven en su hogar?*</label>
                 <select className="form-select" aria-label="Default select example" name="Personas_hogarId" onChange={leerdatos}>
@@ -160,7 +192,7 @@ export const Formulario = () => {
                 <label className="form-label top"> ¿Ha experimentado cambios en su piel como sequedad, reacciones alérgicas o irritaciones?*</label>
 
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="reacciones_alergias" value="1" onChange={leerdatos}/>
+                    <input className="form-check-input" type="radio"  name="reacciones_alergias" value="1" onChange={leerdatos}/>
                     <label className="form-check-label">Si</label>                    
                 </div>  
 
@@ -173,8 +205,13 @@ export const Formulario = () => {
 
                 {
                     agua_hogar.map( agua => (
-                        <div className="form-check" >
-                            <input key={agua.id} className="form-check-input" type="checkbox" value={agua.id} onChange={leerdatos} name="agua_hogar"/>
+                        <div className="form-check"  key={agua.id}>
+                            <input key={agua.id} 
+                                  className="form-check-input" 
+                                  type="checkbox" value={agua.procedencia} 
+                                  onChange={seleccionado} 
+                                  name="agua_hogar"
+                            />
                             <label className="form-check-label" htmlFor="flexCheckDefault">
                                 {agua.procedencia}
                             </label>
