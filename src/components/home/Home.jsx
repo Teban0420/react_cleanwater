@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Formulario } from './Formulario';
 import logo from './logo.jpg'
-import imagen from './imagen.jpg';
+// import imagen from './imagen.jpg';
 import { Imagen } from './Imagen';
 
 
@@ -18,14 +18,16 @@ export const Home = () => {
                             <img src={logo} className='logo' alt="clean water" />
                         </div>
 
-                        <div className="navbar-nav ms-auto right">      
+                        <div className="navbar-nav ms-auto right">  
 
-                            <span 
-                                className="nav-item nav-link "                            
+                        
+                            <NavLink 
+                                className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `} 
+                                to="https://api.whatsapp.com/send?phone=15613658085"
                             >
-                                <i className="fa-brands fa-whatsapp">&nbsp;5613658085</i>                        
+                               <i className="fa-brands fa-whatsapp">&nbsp;5613658085</i>                         
                             
-                            </span>                  
+                            </NavLink>   
 
                             <NavLink 
                                 className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `} 
@@ -60,20 +62,16 @@ export const Home = () => {
                 <div className="row justify-content-center">
                     <div className="col-md-8">
                         <div className="card">
-                            <div className="card-body">
-                        
-                                {/* <div className="mb-3">
-                                    <img src={imagen} className="img-fluid" alt="Imagen" />
-                                </div> */}
-
+                            <div className="card-body">                       
+                               
                                 <h5 className="card-title text-center">Complete la siguiente información</h5>
 
                                 <Formulario />
 
                                 <div className="text-center mt-3">
                                     <small>
-                                        By clicking 'Get My Free Kit', you agree to be contacted by Leaf Home Water 
-                                        Solutions via phone.
+                                    Al hacer click en "enviar" estará de acuerdo en ser contactado por 
+                                    nosotros para agendar su análisis gratuito al agua.
                                     </small>
                                 </div>
                             </div>

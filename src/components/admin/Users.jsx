@@ -3,6 +3,7 @@ import adminAxios from '../../config/axios';
 import { ApiContext } from '../../context/apiContext';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from '../layout/Spinner';
+import Swal from "sweetalert2";
 
 
 export const Users = () => {
@@ -43,13 +44,24 @@ export const Users = () => {
     else{
         navigate('/login');
     }
-
-   
       
   }, [users]);  
 
   const eliminar = (id ) => {
-    eliminar_user(id);
+
+    Swal.fire({
+      title: "Estas seguro de eliminar al usuario?",      
+      showCancelButton: true,
+      confirmButtonText: "Si, eliminar",
+      
+    }).then((result) => {
+      
+      if (result.isConfirmed) {
+        eliminar_user(id);
+        Swal.fire("Eliminado!", "", "success");
+      } 
+    });
+    
   }
 
   const eliminar_user = async (id) => {   

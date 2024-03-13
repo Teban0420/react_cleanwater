@@ -28,8 +28,6 @@ export const Formulario = () => {
         Personas_hogarId: '',
     });
 
- 
-
    useEffect( () => {
 
     const consultar = async () => {
@@ -42,7 +40,7 @@ export const Formulario = () => {
         setpersonas_hogar(respuesta.data.personas_hogar);    
     }
        
-    consultar()
+    consultar();
         
    }, []);
 
@@ -122,21 +120,30 @@ export const Formulario = () => {
 
     return(
         <>
-            <form onSubmit={agregar} >   
-                
-                <label className="form-label top">¿Eres propietario de casa?*</label>
+            <form onSubmit={agregar} > 
+                   
+                <label 
+                    className={ (!usuario.propietario.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    ¿Eres propietario de casa?*
+                </label>
+
                 <div className="form-check">
-                    <input className="form-check-input" type="radio" name="propietario" value="1" onChange={leerdatos} />
+                    <input name="propietario"  className="form-check-input"  type="radio" value="1" onChange={leerdatos}/>
                     <label className="form-check-label">Si</label>                    
                 </div>  
+
                 <div className="form-check">
                     <input className="form-check-input" type="radio" name="propietario" value="0" onChange={leerdatos}/>
                     <label className="form-check-label">No</label>
                 </div> 
 
-                <label className="form-label top">¿Estas casado?*</label>
+                <label 
+                    className={ (!usuario.casado.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    ¿Estas casado?*
+                </label>
+
                 <select className="form-select" aria-label="Default select example" name="casado" onChange={leerdatos}> 
-                    <option value="">Seleccione una opción</option>                   
+                    <option  value="">Seleccione una opción</option>                   
                     {
                         casado.map( element  => (
                             <option key={element.id} value={element.id}>{element.nombre}</option>                        
@@ -144,7 +151,10 @@ export const Formulario = () => {
                     }
                 </select>           
                 
-                <label className="form-label top">Edad*</label>
+                <label 
+                    className={ (!usuario.edad.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    Edad*
+                </label>
 
                 <select className="form-select" aria-label="Default select example" name="edad" onChange={leerdatos}>
                     <option value="">Seleccione una opción</option> 
@@ -155,8 +165,9 @@ export const Formulario = () => {
                 }
                 </select>
 
-
-                <label className="form-label top">¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*</label>
+                <label className="form-label top">
+                    ¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*
+                </label>
                 
                 <div className="container text-center">
                     <input type="checkbox" className="btn-check" checked={calidad === "0"} name="calidad" value="0" autoComplete="off" onChange={leer_calidad} />
@@ -166,7 +177,11 @@ export const Formulario = () => {
                     <label className="btn btn-primary m-1" htmlFor="1">1</label>               
                 </div>
 
-                <label className="form-label top">¿Cuantas personas viven en su hogar?*</label>
+                <label 
+                    className={ (!usuario.Personas_hogarId.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    ¿Cuantas personas viven en su hogar?*
+                </label>
+
                 <select className="form-select" aria-label="Default select example" name="Personas_hogarId" onChange={leerdatos}>
                     <option value="">Seleccione una opción</option> 
                     {
@@ -176,7 +191,10 @@ export const Formulario = () => {
                     }
                 </select>
 
-                <label className="form-label top">¿De donde viene el agua de su hogar?*</label>
+                <label className={ (!usuario.Agua_provenienteId.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    ¿De donde viene el agua de su hogar?*
+                </label>
+
                 <select className="form-select" aria-label="Default select example" name="Agua_provenienteId" onChange={leerdatos}>
                     <option value="">Seleccione una opción</option> 
                     {
@@ -186,7 +204,9 @@ export const Formulario = () => {
                     }
                 </select>
 
-                <label className="form-label top"> ¿Ha experimentado cambios en su piel como sequedad, reacciones alérgicas o irritaciones?*</label>
+                <label className={ (!usuario.reacciones_alergias.length) ? 'form-label top text-danger' : 'form-label top' }> 
+                    ¿Ha experimentado cambios en su piel como sequedad, reacciones alérgicas o irritaciones?*
+                </label>
 
                 <div className="form-check">
                     <input className="form-check-input" type="radio"  name="reacciones_alergias" value="1" onChange={leerdatos}/>
@@ -198,7 +218,9 @@ export const Formulario = () => {
                     <label className="form-check-label">No</label>
                 </div> 
 
-                <label className="form-label top">En su hogar consumen agua proveniente de (Seleccione todas las que aplique)</label>
+                <label className={ (!Select_agua_hogar.length) ? 'form-label top text-danger' : 'form-label top' }>
+                    En su hogar consumen agua proveniente de (Seleccione todas las que aplique)
+                </label>
 
                 {
                     agua_hogar.map( agua => (
@@ -216,24 +238,31 @@ export const Formulario = () => {
                     ))
                 }
 
-
                 <div className="mb-3 top">
-                    <label className="form-label">Nombre</label>
+                    <label className={ (!usuario.nombre.length) ? 'form-label top text-danger' : 'form-label' }>
+                        Nombre
+                    </label>
                     <input type="text" className="form-control" name="nombre" required  onChange={leerdatos}/>
                 </div>                
 
                 <div className="mb-3">
-                    <label className="form-label">Celular</label>
+                    <label className={ (!usuario.celular.length) ? 'form-label top text-danger' : 'form-label' }>
+                        Celular
+                    </label>
                     <input type="tel" className="form-control" name="celular" required onChange={leerdatos}/>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Dirección</label>
+                    <label className={ (!usuario.direccion.length) ? 'form-label top text-danger' : 'form-label' }>
+                        Dirección
+                    </label>
                     <input type="text" className="form-control" name="direccion" required onChange={leerdatos}/>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">Zipcode</label>
+                    <label className={ (!usuario.zipcode.length) ? 'form-label top text-danger' : 'form-label' }>
+                        Zipcode
+                    </label>
                     <input type="text" className="form-control" name="zipcode" required onChange={leerdatos}/>
                 </div>                
 
