@@ -5,8 +5,10 @@ const ApiContext = React.createContext([{}, () => {}]);
 
 const ApiProvider = props => {
 
+    // defino state inicial
+
     const [auth, setAuth ] = useState({
-        token: '',
+        token: '', 
         auth: false
     });
   

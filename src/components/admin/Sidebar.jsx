@@ -22,6 +22,7 @@ export const Sidebar = () => {
     return(
     <>
         <div className="sidebar">
+
             <h2>CleanWater</h2>
             <ul className="nav flex-column">
 

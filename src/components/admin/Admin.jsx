@@ -5,6 +5,7 @@ import { Users } from './Users';
 import { useContext, useEffect} from 'react';
 import { ApiContext } from '../../context/apiContext';
 
+
 export const Admin = () => {
 
     const navigate = useNavigate();
@@ -18,8 +19,7 @@ export const Admin = () => {
 
     return(
         <>
-            <div className='contenedor-sm'>         
-
+            <div className='contenedor-sm '>        
                 <Sidebar />
 
                 <div className="content">

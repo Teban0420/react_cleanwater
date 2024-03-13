@@ -1,38 +1,86 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import adminAxios from '../../config/axios';
+import { ApiContext } from '../../context/apiContext';
+import { useNavigate } from 'react-router-dom';
+import { Spinner } from '../layout/Spinner';
 
 
 export const Users = () => {
 
   const [users, setUsers] = useState([]);
-  
 
+  // usar context
+  const [ auth, setAuth] =  useContext(ApiContext);
+  const navigate = useNavigate();
+  
   useEffect( () => {  
 
-    const peticion = async () => {
+    if(auth.token !== ''){
 
-        const respuesta = await adminAxios.get('/all');      
-        setUsers(respuesta.data.usuarios);      
+        try {
+
+          const peticion = async () => {
+
+            const respuesta = await adminAxios.get('/all', {
+              headers: {
+                Authorization: `Bearer ${auth.token}`               
+              }
+            });   
+  
+            setUsers(respuesta.data.usuarios);      
+          }
+
+          peticion();
+          
+        } catch (error) {
+          // error de autorizacion
+          navigate('/login');
+          // if(error.response.status == 500){
+          // }          
+        }
+       
+    }
+    else{
+        navigate('/login');
     }
 
-    peticion();
+   
       
-  }, [users]);
-  
+  }, [users]);  
 
   const eliminar = (id ) => {
     eliminar_user(id);
   }
 
-  const eliminar_user = async (id) => {      
-    const peticion = await adminAxios.delete(`/users/${id}`);
+  const eliminar_user = async (id) => {   
+    
+    try {
+      const peticion = await adminAxios.delete(`/users/${id}`, {
+          headers: {
+            Authorization: `Bearer ${auth.token}`
+          }
+        });
+
+        peticion();
+      
+    } catch (error) {
+      console.log(error);     
+    }
   }
 
-  const llamar = async (id) => {
+  const llamar = (id) => {
+    llamar_user(id);
+  }
+
+  const llamar_user = async (id) => {
     const actualizar = await adminAxios.put(`/llamar_user/${id}`);
-
   }
-   
+
+  // si el state esta false
+
+  // si no hay clientes
+   if(!users.length) return <Spinner />
+
     return (
         <ul className="list-group ">
             {users.map(user => (
@@ -52,18 +100,19 @@ export const Users = () => {
                             <p className="mb-0"><strong>Calidad del agua:</strong> {user.calidad_agua}</p>
                         </div>
 
-                        <div className='text-center'>
+                    </div>
+                        <div className='text-end pt-2'>
                             {
-                              (user.llamado) &&  <p className="alert alert alert-danger" role="alert"><strong>Ya llame</strong></p>
+                              (user.llamado) &&  <p className="alert alert-danger text-center" role="alert"><strong>Ya llame</strong></p>
                                 
                             }
-                            <button type="button" className="btn btn-success m-1" onClick={() => llamar(user.id)}>LLamar</button>
+                            <button type="button" className="btn btn-success m-2" onClick={() => llamar(user.id)}>LLamar</button>
                             <button type="button" className="btn btn-danger" onClick={() => eliminar(user.id)}>Eliminar</button>
                         </div>
-                    </div>
                 </li>
             ))}
         </ul>
+       
   );
            
 }

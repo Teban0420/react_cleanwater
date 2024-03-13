@@ -27,6 +27,10 @@ body {
   color: white;
 }
 
+.principal{
+  position: relative;
+}
+
 .content {
   margin-left: 250px;
   padding: 20px;  
@@ -65,4 +69,10 @@ body {
 }
 .top {
   padding-top: 2rem;
+}
+
+.acciones {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }

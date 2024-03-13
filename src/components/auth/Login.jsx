@@ -17,7 +17,7 @@ export const Login = () => {
     const leerDatos = e => {
 
         setCredenciales({
-            ...credenciales,
+            ...credenciales, // obtengo copia de las credenciales
             [e.target.name]: e.target.value
         })
     }
@@ -36,7 +36,7 @@ export const Login = () => {
             setAuth({
                 token: token,
                 auth: true
-            })
+            }) 
 
             // redireccionar
             navigate('/admin');
