@@ -16,6 +16,7 @@ export const Formulario = () => {
   
     const [usuario, setusuario] = useState({
         propietario: '',
+        calidad_agua: '',
         reacciones_alergias: '',
         nombre: '',
         celular: '',
@@ -44,7 +45,7 @@ export const Formulario = () => {
         
    }, []);
 
-   const seleccionado = (event) => {
+   const seleccionado = (event) => { 
 
         const {value, checked } = event.target;   
         
@@ -60,8 +61,10 @@ export const Formulario = () => {
         }             
    }
 
-   const leer_calidad = (event) => {       
-        setcalidad(event.target.value);       
+   const leer_calidad = (event) => {   
+    
+       setcalidad(event.target.value);       
+       
    }
 
    const leerdatos = e => {
@@ -98,7 +101,7 @@ export const Formulario = () => {
     }
 
    const agregar = async (e) => {
-        e.preventDefault();
+        e.preventDefault();        
 
         const respuesta = await adminAxios.post('/crear-usuario', usuario);    
         
@@ -128,7 +131,7 @@ export const Formulario = () => {
                 </label>
 
                 <div className="form-check">
-                    <input name="propietario"  className="form-check-input"  type="radio" value="1" onChange={leerdatos}/>
+                    <input name="propietario" className="form-check-input"  type="radio" value="1" onChange={leerdatos}/>
                     <label className="form-check-label">Si</label>                    
                 </div>  
 
@@ -166,17 +169,51 @@ export const Formulario = () => {
                 </select>
 
                 <label className="form-label top">
-                    ¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar?*
+                    ¿En qué nivel cree usted se encuenta la calidad del agua que recibe en su hogar, siendo 0 mala calidad y 5 excelente calidad?*
                 </label>
-                
-                <div className="container text-center">
-                    <input type="checkbox" className="btn-check" checked={calidad === "0"} name="calidad" value="0" autoComplete="off" onChange={leer_calidad} />
-                    <label className="btn btn-primary" htmlFor="0">0</label>
 
-                    <input type="checkbox" className="btn-check" name="calidad" checked={calidad === "1"} value="1" autoComplete="off" onChange={leer_calidad}/>
-                    <label className="btn btn-primary m-1" htmlFor="1">1</label>               
+                <div className="container text-center" >                
+
+                    <label htmlFor="star0" className={ (calidad === "0") ? 'btn btn-primary m-1 ' : 'btn btn-outline-primary m-1 ' } >
+                        <input 
+                            type="radio" id="star0" name="calidad_agua" value="0" onChange={leer_calidad} />
+                        0 
+                    
+                    </label>
+
+
+                    <label htmlFor="star1" className={ (calidad === "1") ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1' } >
+                        <input 
+                            type="radio" id="star1" name="calidad_agua" value="1" onChange={leer_calidad} />
+                        1
+                    </label>
+
+                    <label htmlFor="star2" className={(calidad === "2") ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1' } >
+                        <input 
+                            type="radio" id="star2" name="calidad_agua" value="2" onChange={leer_calidad} />
+                        2
+                    </label>
+
+                    <label htmlFor="star3" className={ (calidad === "3") ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1' } >
+                        <input 
+                            type="radio" id="star3" name="calidad_agua" value="3" onChange={leer_calidad} />
+                        3
+                    </label>
+
+                    <label htmlFor="star4" className={ (calidad === "4") ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1' } >
+                        <input 
+                            type="radio" id="star4" name="calidad_agua" value="4" onChange={leer_calidad} />
+                        4
+                    </label>
+
+                    <label htmlFor="star5" className={ (calidad === "5") ? 'btn btn-primary m-1' : 'btn btn-outline-primary m-1' } >
+                        <input 
+                            type="radio" id="star5" name="calidad_agua" value="5" onChange={leer_calidad} />
+                        5
+                    </label>
+                    
                 </div>
-
+                
                 <label 
                     className={ (!usuario.Personas_hogarId.length) ? 'form-label top text-danger' : 'form-label top' }>
                     ¿Cuantas personas viven en su hogar?*

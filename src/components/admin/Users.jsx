@@ -24,7 +24,7 @@ export const Users = () => {
 
             const respuesta = await adminAxios.get('/all', {
               headers: {
-                Authorization: `Bearer ${auth.token}`               
+                Authorization: `Bearer ${auth.token}`                          
               }
             });   
   
@@ -34,10 +34,11 @@ export const Users = () => {
           peticion();
           
         } catch (error) {
-          // error de autorizacion
-          navigate('/login');
-          // if(error.response.status == 500){
-          // }          
+          
+          if(error.response.status == 500){
+            navigate('/login');
+          }          
+          console.log(error)
         }
        
     }

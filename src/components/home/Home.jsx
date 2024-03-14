@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import { Formulario } from './Formulario';
-import logo from './logo.jpg'
-// import imagen from './imagen.jpg';
+import logo from './logo.jpg';
 import { Imagen } from './Imagen';
 
 
 export const Home = () => {
+
+    useEffect( () => {
+        ReactGA.pageview(window.location.pathname);
+    }, []);
 
     return(
         <>    
