@@ -19,28 +19,24 @@ export const Home = () => {
 
                     <div className="navbar-collapse navegacion">
 
-                        <div className="navbar-nav"> 
+                        <NavLink 
+                                className="navbar-nav " 
+                                to="/login"
+                            >
+                                                         
                             <img src={logo} className='logo' alt="clean water" />
-                        </div>
+                        </NavLink>
 
-                        <div className="navbar-nav ms-auto right">  
+                        <div className="navbar-nav right"> 
 
-                        
                             <NavLink 
-                                className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `} 
+                                className="nav-item nav-link"
                                 to="https://api.whatsapp.com/send?phone=15613658085"
                             >
                                <i className="fa-brands fa-whatsapp">&nbsp;5613658085</i>                         
                             
-                            </NavLink>   
+                            </NavLink>  
 
-                            <NavLink 
-                                className={ ({isActive}) => `nav-item nav-link ${isActive ? 'active' : ''} `} 
-                                to="/login"
-                            >
-                                <i className="fa-solid fa-right-to-bracket">&nbsp;Login</i>                           
-                            
-                            </NavLink>
                         </div>
                     </div>
                 </nav>

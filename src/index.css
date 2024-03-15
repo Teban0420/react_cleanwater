@@ -29,7 +29,7 @@ body {
 
 .principal{
   position: relative;
-}
+}  
 
 
 .container .text-center input[type="radio"] {
@@ -61,7 +61,13 @@ body {
 }
 
 .right {
-  padding-left: 78%;
+  padding-left: 64%;  
+}
+
+@media (min-width: 768px){
+  .right{
+    padding-left: 85%;
+  }
 }
 
 .logo {
